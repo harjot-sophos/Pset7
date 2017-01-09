@@ -14,6 +14,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 }
 else
 {
+    
   // else render form
   render("quote_form.php", ["title" => "Quote"]);
 }
