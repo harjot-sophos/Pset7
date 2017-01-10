@@ -7,7 +7,7 @@
  $id = $_SESSION["id"];
  
     // get user's portfolio
-    $rows =	query("SELECT * FROM portfolios WHERE id = ?", $id );
+    $rows =CS50:: query("SELECT * FROM Portfolios WHERE id = ?", $id );
    
     // create new array to store all info for portfolio table
 	$positions = [];
@@ -28,7 +28,7 @@
 	}
 	
 	// Balance left with user 
-	$cash = query("SELECT username, cash FROM users WHERE id = $id");
+	$users =CS50:: query("SELECT username, cash FROM users WHERE id = $id");
     
     // render portfolio
        render("portfolio.php", ["title" => "Positions", "positions" => $positions, "users" => $users]);
