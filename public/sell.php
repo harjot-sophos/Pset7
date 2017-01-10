@@ -28,7 +28,14 @@
 	 	
 	 	
 	}
-}
+  }
+ else
+ {
+     // else render form
+  render("sell_form.php", ["title" => "Sell"]);
+ }
+    
+
 
 ?>
 	 	
