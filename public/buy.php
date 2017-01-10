@@ -18,9 +18,43 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         }
       $id = $_SESSION["id"];
 	  $stock = $_POST["stock"];
-	  $shares = $POST["shares"];
+	  $shares = $_POST["shares"];
+	  
+	 // upper case 
+	  $symbol = strtoupper($stock)
+	  
     //Look for the stock entered
-     $stock = lookup($_POST["stock"]);
-        
+     $sbuy= lookup($symbol);
+       if ($sbuy=== false)
+        {
+            apologize("Entered stock symbol was invalid.");
+        }
+        else
+        {
+          $price = $sbuy["price"];
+	 		$cash = CS50:: query("SELECT cash FROM users WHERE id = $id");
+	 		$cost = $price*$shares; 
+	 		
+	 		if($cost > $cash[0]["cash"])
+		 	{
+		 		apologize("You don't have enough money to buy ". $shares . " shares from " . $symbol.".");
+			}
+		 	else
+		 	{
+		 	  CS50::  query("INSERT INTO Portfolios (id, symbol, shares) VALUES($id, '$symbol', $shares) 
+		 	  ON DUPLICATE KEY UPDATE shares = shares + $shares");
+		 	 
+		 	  CS50:: query("UPDATE users SET cash = cash - $cost WHERE id = $id");
+		 	 
+		 	  render("../templates/buy.php", ["title" => "Buy", "stock" => $symbol, "cost" => $cost, "shares" => $shares]);
+		    }
+        }
+    
 }
+else
+{
+  // else render form
+  render("buy_form.php", ["title" => "Buy"]);
+}
+
 ?>
