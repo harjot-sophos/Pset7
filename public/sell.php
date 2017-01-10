@@ -15,20 +15,37 @@
 		$id = $_SESSION["id"];
 		$stock = $_POST["stock"];
 		
-		$value = lookup("$stock");
-	 	$shares = $shares[0]["shares"];
-	 	$price = $value["price"];
-	 	$profit = $shares*$price;
+		// Display error if the user doesn't own any of the stock entered
+	    if(!$shares =CS50:: query("SELECT shares FROM portfolio WHERE id = $id AND symbol = '$stock'"))
+	    {
+	        apologize("You don't own any shares of this stock");
+     	}
+	   else
+	   {
+		
+	    	$value = lookup("$stock");
+	    	$shares = $shares[0]["shares"];
+	 	    $price = $value["price"];
+	    	$profit = $shares*$price;
 	 	
-	 	// Delete the stock from the user's portfolio 
-	   $delete = CS50:: query("DELETE FROM portfolio WHERE id = $id AND symbol = '$stock'");
+	    	// Delete the stock from the user's portfolio 
+	         $delete = CS50:: query("DELETE FROM portfolio WHERE id = $id AND symbol = '$stock'");
+	         if ($delete === false)
+             {
+               apologize("Error while selling shares.");
+             }
 	   
-	   //update the balance in the user's portfolio
-	   $update = CS50:: query("UPDATE users SET cash = cash + $profit WHERE id = $id");
+	         //update the balance in the user's portfolio
+	          $update = CS50:: query("UPDATE users SET cash = cash + $profit WHERE id = $id");
+      	    if ($update === false)
+             {
+                apologize("Error while selling shares.");
+             }
 	 	
-	 	
-	}
-  }
+    	 	render("../templates/sell.php", ["title" => "Sell", "value" => $value , "profit" => $profit]);
+	     } 
+    }
+ }
  else
  {
      // else render form
