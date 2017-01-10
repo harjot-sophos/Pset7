@@ -11,7 +11,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         {
             apologize("Please enter the stock symbol.");
         }
-    // if the amount to sell valid    
+    // if the amount to buy valid    
         if (empty($_POST["shares"]) || !is_numeric($_POST["shares"]) || !preg_match("/^\d+$/", $_POST["shares"]))
         {
             apologize("Please enter the whole amount of shares!");
@@ -21,17 +21,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 	  $shares = $_POST["shares"];
 	  
 	 // upper case 
-	  $symbol = strtoupper($stock)
+	 $symbol = strtoupper($stock)
 	  
     //Look for the stock entered
-     $sbuy= lookup($symbol);
-       if ($sbuy=== false)
+        
+       if($stock = lookup($symbol) === false)
         {
             apologize("Entered stock symbol was invalid.");
         }
         else
         {
-          $price = $sbuy["price"];
+          $price = $stock["price"];
 	 		$cash = CS50:: query("SELECT cash FROM users WHERE id = $id");
 	 		$cost = $price*$shares; 
 	 		
