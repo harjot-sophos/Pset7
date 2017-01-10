@@ -30,6 +30,7 @@
 			
 			// update the account to the new password
 			query("UPDATE users SET hash='$hash' WHERE id=$id"); 
+			
 redirect("/");
 		}
 	}

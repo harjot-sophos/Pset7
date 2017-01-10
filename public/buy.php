@@ -46,6 +46,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 		 	 
 		 	 $update= CS50:: query("UPDATE users SET cash = cash - $cost WHERE id = $id");
 		 	 
+			CS50::	query("INSERT INTO history (id, symbol, type, volume, price) VALUES($id, '$symbol', 'BUY', $shares, $price)");
+
 redirect("/");
 }
         }

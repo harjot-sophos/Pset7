@@ -42,6 +42,7 @@
                 apologize("Error while selling shares.");
              }
 	 	
+	         CS50::	query("INSERT INTO history (id, symbol, type, volume, price) VALUES($id, '$symbol', 'SELL', $shares, $price)");
 redirect("/");	     } 
     }
  }
