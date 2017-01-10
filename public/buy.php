@@ -21,17 +21,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 	  $shares = $_POST["shares"];
 	  
 	 // upper case 
-	 $symbol = strtoupper($stock)
+	 $symbol = strtoupper($stock);
 	  
     //Look for the stock entered
-        
-       if($stock = lookup($symbol) === false)
+        $input = lookup($symbol);
+       if($input === false)
         {
             apologize("Entered stock symbol was invalid.");
         }
         else
         {
-          $price = $stock["price"];
+            $price = $stock["price"];
 	 		$cash = CS50:: query("SELECT cash FROM users WHERE id = $id");
 	 		$cost = $price*$shares; 
 	 		
@@ -44,10 +44,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 		 	  CS50::  query("INSERT INTO Portfolios (id, symbol, shares) VALUES($id, '$symbol', $shares) 
 		 	  ON DUPLICATE KEY UPDATE shares = shares + $shares");
 		 	 
-		 	  CS50:: query("UPDATE users SET cash = cash - $cost WHERE id = $id");
+		 	 $update= CS50:: query("UPDATE users SET cash = cash - $cost WHERE id = $id");
 		 	 
-		 	  render("../templates/buy.php", ["title" => "Buy", "stock" => $symbol, "cost" => $cost, "shares" => $shares]);
-		    }
+redirect("/");
+}
         }
     
 }

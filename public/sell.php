@@ -16,7 +16,7 @@
 		$stock = $_POST["stock"];
 		
 		// Display error if the user doesn't own any of the stock entered
-	    if(!$shares =CS50:: query("SELECT shares FROM Portfolios WHERE id = $id AND symbol = '$stock'"))
+	    if(!$shares =CS50:: query("SELECT Shares FROM Portfolios WHERE id = $id AND symbol = '$stock'"))
 	    {
 	        apologize("You don't own any shares of this stock");
      	}
@@ -42,8 +42,7 @@
                 apologize("Error while selling shares.");
              }
 	 	
-    	 	render("../templates/sell.php", ["title" => "Sell", "value" => $value , "profit" => $profit]);
-	     } 
+redirect("/");	     } 
     }
  }
  else

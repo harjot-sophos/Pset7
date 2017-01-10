@@ -7,14 +7,15 @@
  $id = $_SESSION["id"];
  
     // get user's portfolio
-    $rows =CS50:: query("SELECT * FROM Portfolios WHERE id = ?", $id );
+    $rows =CS50:: query("SELECT  id, symbol, shares FROM Portfolios WHERE id = ?", $id );
    
     // create new array to store all info for portfolio table
 	$positions = [];
 
 	// for each of user's stocks
 	foreach ($rows as $row)	
-	{   $stock = lookup($row["symbol"]);
+	{   
+		$stock = lookup($rows["symbol"]);
 	   if ($stock !== false)
 	   {
 	         	  $positions[] = [

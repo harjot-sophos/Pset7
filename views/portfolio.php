@@ -1,19 +1,23 @@
 <div>
+	<ul class="nav nav-pills">
+    <li><a href="change password">change password</a></li>
+    </ul>
 	<div id="message">
 		<?php
 			print("Welcome, ". $users[0]["username"] .". Your current balance is " . sprintf("%.2f",$users[0]["cash"]).".");
 		?>
 	</div>
-	<table id="overview">
-		<?php
-			print("<tr>");
-				print("<th>Symbol  </th>");
-				print("<th>Name</th>");
-				print("<th>Shares</th>");
-				print("<th>Total value</th>");
-			print("</tr>");
+	
+		
+	<table class = "table table-striped">
+		<tr>
+			<th class="text-center">Symbol</th>
+			<th class="text-center">Name</th>
+			<th class="text-center">Shares</th>
+			<th class="text-center">Total Value</th>
+		</tr>
 				  
-			foreach ($positions as $position)
+		<?php	foreach ($positions as $position)
 			{	  
 				print("<tr>");
 				print("<td>" . $position["symbol"] . "</td>");
