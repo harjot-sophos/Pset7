@@ -15,7 +15,7 @@
 	// for each of user's stocks
 	foreach ($rows as $row)	
 	{   
-		$stock = lookup($rows["symbol"]);
+		$stock = lookup($row["symbol"]);
 	   if ($stock !== false)
 	   {
 	         	  $positions[] = [

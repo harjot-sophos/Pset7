@@ -31,9 +31,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         }
         else
         {
-            $price = $stock["price"];
 	 		$cash = CS50:: query("SELECT cash FROM users WHERE id = $id");
-	 		$cost = $price*$shares; 
+	 		$cost = $shares*$stock["price"]; 
 	 		
 	 		if($cost > $cash[0]["cash"])
 		 	{
@@ -46,7 +45,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 		 	 
 		 	 $update= CS50:: query("UPDATE users SET cash = cash - $cost WHERE id = $id");
 		 	 
-			CS50::	query("INSERT INTO history (id, symbol, type, volume, price) VALUES($id, '$symbol', 'BUY', $shares, $price)");
+			CS50::	query("INSERT INTO history (id, symbol, type, volume, price) VALUES($id, '$symbol', 'BUY', $shares,$stock["price"];)");
 
 redirect("/");
 }

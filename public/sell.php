@@ -14,6 +14,8 @@
 	{
 		$id = $_SESSION["id"];
 		$stock = $_POST["stock"];
+	    $shares = $_POST["shares"];
+
 		
 		// Display error if the user doesn't own any of the stock entered
 	    if(!$shares =CS50:: query("SELECT Shares FROM Portfolios WHERE id = $id AND symbol = '$stock'"))
@@ -43,7 +45,8 @@
              }
 	 	
 	         CS50::	query("INSERT INTO history (id, symbol, type, volume, price) VALUES($id, '$symbol', 'SELL', $shares, $price)");
-redirect("/");	     } 
+              redirect("/");}
+              
     }
  }
  else
