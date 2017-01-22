@@ -19,7 +19,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
       $id = $_SESSION["id"];
 	  $stock = $_POST["stock"];
 	  $shares = $_POST["shares"];
-	   $price = $stock["price"];
+	   
 
 	  
 	 // upper case 
@@ -33,6 +33,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         }
         else
         {
+            $price = $input["price"];
 	 		$cash = CS50:: query("SELECT cash FROM users WHERE id = $id");
 	 		$cost = $price*$shares; 
 	 		
@@ -42,8 +43,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 			}
 		 	else
 		 	{
-		 	  CS50::  query("INSERT INTO Portfolios (user_id, symbol, shares) VALUES($id, ?, $shares) 
-		 	  ON DUPLICATE KEY UPDATE shares = shares + $shares",$symbol);
+		 	    if(cs50:: query ("SELECT * FROM Portfolios WHERE user_id = $id and symbol =?", strtoupper($stock["symbol"])))
+		 	    {
+		 	        CS50::query("INSERT INTO Portfolios (user_id, symbol, shares) VALUES($id, ?, $shares)ON DUPLICATE KEY UPDATE shares = shares + $shares",strtoupper($stock));
+		 	    }
+		 	    else
+		 	    {
+		 	        CS50::query("INSERT INTO Portfolios (user_id, symbol, shares) VALUES($id, ?, $shares)",strtoupper($stock));
+		 	    }
+		 	 
 		 	 
 		 	  CS50:: query("UPDATE users SET cash = cash - ? WHERE id =?",$cost, $id);
 		 	 

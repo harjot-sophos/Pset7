@@ -1,10 +1,13 @@
 <form action="sell.php" method="post">
     <fieldset>
         <div class="form-group">
-            <input autofocus class="form-control" name="stock" placeholder="enter the stock" type="text"/>
+            <input autofocus class="form-control" name="symbol" placeholder="Enter a stock symbol" type="text"/>
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-default">Sell</button>
+            <input class="form-control" name="shares" placeholder="Shares" type="number"/>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-default">SELL</button>
         </div>
     </fieldset>
 </form>
