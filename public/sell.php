@@ -17,8 +17,9 @@
 	    $shares = $_POST["shares"];
 
 		
+		
 		// Display error if the user doesn't own any of the stock entered
-	    if(!$shares =CS50:: query("SELECT Shares FROM Portfolios WHERE id = $id AND symbol = '$stock'"))
+	    if(!$shares =CS50:: query("SELECT Shares FROM Portfolios WHERE user_id = $id AND symbol = '$stock'"))
 	    {
 	        apologize("You don't own any shares of this stock");
      	}
@@ -44,7 +45,7 @@
                 apologize("Error while selling shares.");
              }
 	 	
-	         CS50::	query("INSERT INTO history (id, symbol, type, volume, price) VALUES($id, '$symbol', 'SELL', $shares, $price)");
+	         CS50::	query("INSERT INTO history (user_id, symbol, type, volume, price) VALUES($id,? , 'SELL', $shares, $price)",$stock);
               redirect("/");}
               
     }

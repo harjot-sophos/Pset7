@@ -10,24 +10,23 @@
 			
 			<tr>
 		<th class="text-center">Transaction type</th>
-		<th class="text-center">Date/Time</th>
-		<th class="text-center">Symbol</th>
+	    <th class="text-center">Symbol</th>
 		<th class="text-center">Volume</th>
-		<th class="text-center">Price</th>
+
 	</tr>
 
 
 		  
-		<?php foreach ($history as $history): ?>			{	  
-				print("<tr>");
-				print("<td>" . $history["type"] . "</td>");
-				print("<td>" . $history["date"] . "</td>");
-				print("<td>" . $history["symbol"] . "</td>");
-				print("<td>" . $history["volume"] . "</td>");
-				print("<td>" . sprintf("%.2f",$history["price"]) . "</td>");
-				print("</tr>");
-				print("</br>");
-		<?php endforeach ?>
+	
+		<?php foreach ($history as $history): ?>
+    <tbody>
+        <tr>
+            <td><?= $history["type"] ?></td>
+            <td><?= $history["symbol"] ?></td>
+            <td><?= $history["volume"] ?></td>
+            
+        </tr>
+<?php endforeach ?>
 				
 			
 

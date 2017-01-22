@@ -20,6 +20,7 @@
 	   {
 	         	  $positions[] = [
 		         "symbol" => $row["symbol"],
+		         "price" => $stock["price"],
 		         "name" => $stock["name"],
 		         "shares" => $row["shares"],
 		         "total"=> $row["shares"]*$stock["price"]
@@ -32,7 +33,7 @@
 	$users =CS50:: query("SELECT username, cash FROM users WHERE id = $id");
     
     // render portfolio
-       render("portfolio.php", ["title" => "Positions", "positions" => $positions, "users" => $users]);
+       render("portfolio.php", ["title" => "Positions", "positions" => $positions, "users" => $users, "price" => $stock["price"]]);
 	
 
 ?>    

@@ -14,7 +14,8 @@
 			<th class="text-center">Symbol</th>
 			<th class="text-center">Name</th>
 			<th class="text-center">Shares</th>
-			<th class="text-center">Total Value</th>
+	        <th class="text-center">Price</th>
+         	<th class="text-center">Total Value</th>
 		</tr>
 				  
 		<?php	foreach ($positions as $position)
@@ -23,6 +24,7 @@
 				print("<td>" . $position["symbol"] . "</td>");
 				print("<td>" . $position["name"] . "</td>");
 				print("<td>" . $position["shares"] . "</td>");
+				print("<td>" . $position["price"] . "</td>");
 				print("<td>" . $position["total"] . "</td>");
 				print("</tr>");
 			}

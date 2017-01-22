@@ -19,6 +19,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
       $id = $_SESSION["id"];
 	  $stock = $_POST["stock"];
 	  $shares = $_POST["shares"];
+	   $price = $stock["price"];
+
 	  
 	 // upper case 
 	 $symbol = strtoupper($stock);
@@ -32,7 +34,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         else
         {
 	 		$cash = CS50:: query("SELECT cash FROM users WHERE id = $id");
-	 		$cost = $shares*$stock["price"]; 
+	 		$cost = $price*$shares; 
 	 		
 	 		if($cost > $cash[0]["cash"])
 		 	{
@@ -40,15 +42,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 			}
 		 	else
 		 	{
-		 	  CS50::  query("INSERT INTO Portfolios (id, symbol, shares) VALUES($id, '$symbol', $shares) 
-		 	  ON DUPLICATE KEY UPDATE shares = shares + $shares");
+		 	  CS50::  query("INSERT INTO Portfolios (user_id, symbol, shares) VALUES($id, ?, $shares) 
+		 	  ON DUPLICATE KEY UPDATE shares = shares + $shares",$symbol);
 		 	 
-		 	 $update= CS50:: query("UPDATE users SET cash = cash - $cost WHERE id = $id");
+		 	  CS50:: query("UPDATE users SET cash = cash - ? WHERE id =?",$cost, $id);
 		 	 
-			CS50::	query("INSERT INTO history (id, symbol, type, volume, price) VALUES($id, '$symbol', 'BUY', $shares,$stock["price"];)");
-
-redirect("/");
-}
+			CS50::	query("INSERT INTO history (user_id, symbol, type, volume) VALUES($id, ?, 'BUY', $shares)",$symbol);
+             redirect("/");
+           }
         }
     
 }
