@@ -1,14 +1,12 @@
 <div>
-	<ul class="nav nav-pills">
-    <li><a href="change password">change password</a></li>
-    </ul>
+
 	<div id="message">
 		<?php
 			print("Welcome, ". $users[0]["username"] .". Your current balance is " . sprintf("%.2f",$users[0]["cash"]).".");
 		?>
 	</div>
 	
-		
+	<div> 	
 	<table class = "table table-striped">
 		<tr>
 			<th class="text-center">Symbol</th>
@@ -30,4 +28,5 @@
 			}
 		?>
 	</table>
+	</div>
 </div>
